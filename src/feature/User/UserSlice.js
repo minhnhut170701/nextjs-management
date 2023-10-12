@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userData = JSON.parse(localStorage.getItem("userData")) || null;
+const userData = JSON.parse(!!localStorage.getItem("userData")) || null;
 
 const initialState = {
   user: userData,
@@ -15,7 +15,12 @@ const UserSlice = createSlice({
 
     },
     logout: (state) => {
-      !!localStorage.removeItem('userData');
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem('userData');
+      } else {
+        // If neither localStorage nor sessionStorage is supported
+        console.log('Web Storage is not supported in this environment.');
+      }
       state.user = null;
     }
   },

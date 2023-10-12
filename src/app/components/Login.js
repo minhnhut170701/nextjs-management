@@ -41,7 +41,12 @@ export default function LoginComponent() {
         const data = await response.json();
         if(data.isAdmin){
           // Save user data in localStorage
-          localStorage.setItem('userData', JSON.stringify(data));
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('userData', JSON.stringify(data));
+          } else {
+            // If neither localStorage nor sessionStorage is supported
+            console.log('Web Storage is not supported in this environment.');
+          }
           dispatch(setUserFromLocalStorage(data));
           // Clear input fields
           setLoginInfo({email: '', password: ''});
