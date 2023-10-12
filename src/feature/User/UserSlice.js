@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userData = JSON.parse(!!localStorage.getItem("userData")) || null;
+const userData = typeof window !== "undefined"  ?  JSON.parse(localStorage.getItem("userData")) : null;
 
 const initialState = {
   user: userData,
@@ -15,7 +15,7 @@ const UserSlice = createSlice({
 
     },
     logout: (state) => {
-      if (typeof localStorage !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.removeItem('userData');
       } else {
         // If neither localStorage nor sessionStorage is supported

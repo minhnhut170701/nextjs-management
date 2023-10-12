@@ -41,7 +41,7 @@ export default function LoginComponent() {
         const data = await response.json();
         if(data.isAdmin){
           // Save user data in localStorage
-          if (typeof localStorage !== 'undefined') {
+          if (typeof window !== "undefined") {
             localStorage.setItem('userData', JSON.stringify(data));
           } else {
             // If neither localStorage nor sessionStorage is supported
